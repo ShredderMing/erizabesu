@@ -1,0 +1,31 @@
+{
+  "name": "erizabesu",
+  "version": "0.0.1",
+  "main": "dist/erizabesu.js",
+  "minified:main": "dist/erizabesu.min.js",
+  "amdName": "Erizabesu",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run -s transpile && npm run -s minify && npm run -s size",
+    "transpile": "rollup -c rollup.config.js",
+    "minify": "uglifyjs $npm_package_main -cm -o $npm_package_minified_main --source-map filename=${npm_package_minified_main}.map",
+    "size": "echo \"gzip size: $(gzip-size $npm_package_minified_main)\"",
+    "release": "npm run -s build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+  },
+  "peerDependencies": {
+    "preact": "*"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "gzip-size-cli": "^2.1.0",
+    "postcss-discard-comments": "^2.0.4",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-postcss": "^0.5.5",
+    "uglify-js": "^3.1.2"
+  }
+}
