@@ -1,6 +1,6 @@
 {
   "name": "erizabesu",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "main": "dist/erizabesu.js",
   "minified:main": "dist/erizabesu.min.js",
   "amdName": "Erizabesu",
