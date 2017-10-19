@@ -1,16 +1,22 @@
 {
   "name": "erizabesu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/erizabesu.js",
   "minified:main": "dist/erizabesu.min.js",
   "amdName": "Erizabesu",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShredderMing/erizabesu"
+  },
   "scripts": {
     "build": "npm run -s transpile && npm run -s minify && npm run -s size",
     "transpile": "rollup -c rollup.config.js",
-    "minify": "uglifyjs $npm_package_main -cm -o $npm_package_minified_main --source-map filename=${npm_package_minified_main}.map",
+    "minify":
+      "uglifyjs $npm_package_main -cm -o $npm_package_minified_main --source-map filename=${npm_package_minified_main}.map",
     "size": "echo \"gzip size: $(gzip-size $npm_package_minified_main)\"",
-    "release": "npm run -s build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
+    "release":
+      "npm run -s build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "peerDependencies": {
     "preact": "*"

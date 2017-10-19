@@ -94,6 +94,12 @@ export default class Erizabesu extends Component {
     this.onSwipeEnd(e);
   };
 
+  onBoardClick = e => {
+    if (this.startX !== getX(e)) {
+      e.preventDefault();
+    }
+  };
+
   render({ data, className, ...props }, { boardIndex, transition }) {
     return (
       <div
@@ -115,7 +121,13 @@ export default class Erizabesu extends Component {
           }
         >
           {data.map(board => (
-            <a class="board" style={{ backgroundImage: `url(${board.url})` }} />
+            <a
+              class="board"
+              href={board.href}
+              target={board.target}
+              onClick={this.onBoardClick}
+              style={{ backgroundImage: `url(${board.img})` }}
+            />
           ))}
         </div>
       </div>
