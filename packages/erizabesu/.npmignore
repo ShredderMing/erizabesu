@@ -1,2 +1,4 @@
 src
 .directory
+rollup.config.js
+yarn.lock
