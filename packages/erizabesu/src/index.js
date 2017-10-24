@@ -100,7 +100,7 @@ export default class Erizabesu extends Component {
     }
   };
 
-  render({ data, className, ...props }, { boardIndex, transition }) {
+  render({ data, className, indicator, ...props }, { boardIndex, transition }) {
     return (
       <div
         {...props}
@@ -130,6 +130,9 @@ export default class Erizabesu extends Component {
             />
           ))}
         </div>
+        {indicator
+          ? h(indicator, { num: data.length, index: boardIndex }, null)
+          : ''}
       </div>
     );
   }

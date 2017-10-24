@@ -1,0 +1,23 @@
+.erizabesu {
+  position: relative;
+}
+.erizabesu .indicator {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+  text-align: right;
+}
+.erizabesu .indicator li {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 9px;
+  background-color: #eee;
+}
+.erizabesu .indicator li:last-child {
+  margin-right: 27px;
+}
+.erizabesu .indicator li.active {
+  background-color: #1da1f2;
+}
