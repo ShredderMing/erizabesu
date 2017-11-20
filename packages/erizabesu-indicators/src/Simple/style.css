@@ -11,6 +11,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
+  cursor: pointer;
   display: inline-block;
   margin: 0 9px;
   background-color: #eee;

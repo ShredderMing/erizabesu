@@ -100,7 +100,16 @@ export default class Erizabesu extends Component {
     }
   };
 
-  render({ data, className, indicator, ...props }, { boardIndex, transition }) {
+  swipeBoard = boardIndex => {
+    this.clearAutoPlay();
+    this.setState({ boardIndex });
+    this.autoPlay();
+  };
+
+  render(
+    { data, className, indicator: Indicator, ...props },
+    { boardIndex, transition }
+  ) {
     return (
       <div
         {...props}
@@ -130,9 +139,11 @@ export default class Erizabesu extends Component {
             />
           ))}
         </div>
-        {indicator
-          ? h(indicator, { num: data.length, index: boardIndex }, null)
-          : ''}
+        <Indicator
+          num={data.length}
+          index={boardIndex}
+          swipeBoard={this.swipeBoard}
+        />
       </div>
     );
   }
