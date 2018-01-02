@@ -84,12 +84,16 @@ export default class Erizabesu extends Component {
     this.autoPlay();
     this.setState({ transition: true });
     let boardIndex = this.state.boardIndex;
-    if (boardIndex < 0) {
-      boardIndex = 0;
-    } else if (boardIndex > this.dataLength - 1) {
-      boardIndex = this.dataLength - 1;
-    } else {
+    if (this.props.infinite) {
       boardIndex = Math.round(this.state.boardIndex);
+    } else {
+      if (boardIndex < 0) {
+        boardIndex = 0;
+      } else if (boardIndex > this.dataLength - 1) {
+        boardIndex = this.dataLength - 1;
+      } else {
+        boardIndex = Math.round(this.state.boardIndex);
+      }
     }
     this.setState({ boardIndex });
   };
