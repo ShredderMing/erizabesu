@@ -1,18 +1,26 @@
 {
   "name": "erizabesu",
+  "amdName": "erizabesu",
   "version": "1.0.0",
   "main": "dist/erizabesu.js",
+  "umd:main": "dist/erizabesu.umd.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShredderMing/erizabesu/tree/master/packages/erizabesu"
+    "url":
+      "https://github.com/ShredderMing/erizabesu/tree/master/packages/erizabesu"
   },
   "scripts": {
-    "build": "npm run -s transpile && npm run -s minify && npm run -s size",
+    "build":
+      "npm run -s transpile && npm run -s minify:cjs && npm run -s minify:umd && npm run -s size",
     "transpile": "rollup -c rollup.config.js",
-    "minify": "uglifyjs $npm_package_main -cm -o $npm_package_main --source-map filename=${npm_package_main}.map",
+    "minify:cjs":
+      "uglifyjs $npm_package_main -cm -o $npm_package_main --source-map filename=${npm_package_main}.map",
+    "minify:umd":
+      "uglifyjs $npm_package_umd_main -cm -o $npm_package_umd_main --source-map filename=${npm_package_umd_main}.map",
     "size": "echo \"gzip size: $(gzip-size $npm_package_main)\""
   },
+  "files": ["src", "dist"],
   "peerDependencies": {
     "preact": "*"
   },
