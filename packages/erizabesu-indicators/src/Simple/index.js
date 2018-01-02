@@ -3,7 +3,7 @@ import './style.css';
 
 export default class Simple extends Component {
   onIndicatorClick = i => () => this.props.swipeBoard(i);
-  render({ num, index, onClick }) {
+  render({ num, index, className, ...props }) {
     const pos = Math.round(index);
     const children = [];
     for (let i = 0; i < num; i++) {
@@ -13,6 +13,13 @@ export default class Simple extends Component {
         children[i] = <li class="active" />;
       }
     }
-    return <ul class="indicator">{children}</ul>;
+    return (
+      <ul
+        {...props}
+        class={['indicator', props.class, className].filter(Boolean).join(' ')}
+      >
+        {children}
+      </ul>
+    );
   }
 }
