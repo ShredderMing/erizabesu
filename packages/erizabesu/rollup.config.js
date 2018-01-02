@@ -11,7 +11,7 @@ export default {
     { file: pkg.main, format: 'cjs' },
     { file: pkg['umd:main'], format: 'umd', name: pkg.name }
   ],
-  globals: { preact: 'preact', [pkg.name]: pkg.amdName },
+  globals: { preact: 'preact' },
   sourcemap: true,
   external: ['preact'],
   plugins: [
@@ -21,7 +21,6 @@ export default {
       exclude: ['node_modules/**', '**/*.css'],
       presets: [['env', { modules: false, loose: true }]],
       plugins: [
-        'external-helpers',
         'transform-object-rest-spread',
         'transform-class-properties',
         ['transform-react-jsx', { pragma: 'h' }]
