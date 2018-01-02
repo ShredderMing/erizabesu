@@ -25,7 +25,7 @@ yarn add erizabesu-indicators # optional
 ```js
 import { h } from 'preact';
 import Erizabesu from 'erizabesu';
-import { SimpleIndicator } from 'erizabesu-indicators';
+import { Simple } from 'erizabesu-indicators';
 
 const data = [
   {
@@ -57,7 +57,7 @@ const data = [
 
 const SimpleSlider = () => (
   <Erizabesu data={data} style={{width: '600px', height: '300px'}}>
-    <SimpleIndicator />
+    <Simple />
   </Erizabesu>
 );
 
