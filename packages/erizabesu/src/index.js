@@ -1,5 +1,5 @@
-import { h, Component, cloneElement } from 'preact';
-import './style.css';
+import { h, Component, cloneElement } from 'preact'
+import './style.css'
 
 export default class Erizabesu extends Component {
   static defaultProps = {
@@ -7,138 +7,148 @@ export default class Erizabesu extends Component {
     autoplaySpeed: 3000,
     allowMouseSwipe: true,
     infinite: true
-  };
-  state = { boardIndex: 0, transition: true };
+  }
+  state = { boardIndex: 0, transition: true }
 
   componentDidMount() {
-    this.autoPlay();
-    this.dataLength = this.props.data.length;
+    this.autoPlay()
+    this.dataLength = this.props.data.length
 
-    this.boards.addEventListener('mousedown', this.onMouseDown);
-    this.boards.addEventListener('touchstart', this.onSwipeStart);
-    this.boards.addEventListener('touchmove', this.onSwipeMove);
-    this.boards.addEventListener('touchend', this.onSwipeEnd);
+    this.boards.addEventListener('mousedown', this.onMouseDown)
+    this.boards.addEventListener('touchstart', this.onSwipeStart)
+    this.boards.addEventListener('touchmove', this.onSwipeMove)
+    this.boards.addEventListener('touchend', this.onSwipeEnd)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.dataLength = nextProps.data.length;
+    this.dataLength = nextProps.data.length
   }
 
   componentWillUnmount() {
-    this.clearAutoPlay();
+    this.clearAutoPlay()
 
-    this.boards.removeEventListener('mousedown', this.onMouseDown);
-    this.boards.removeEventListener('touchstart', this.onSwipeStart);
-    this.boards.removeEventListener('touchmove', this.onSwipeMove);
-    this.boards.removeEventListener('touchend', this.onSwipeEnd);
+    this.boards.removeEventListener('mousedown', this.onMouseDown)
+    this.boards.removeEventListener('touchstart', this.onSwipeStart)
+    this.boards.removeEventListener('touchmove', this.onSwipeMove)
+    this.boards.removeEventListener('touchend', this.onSwipeEnd)
   }
 
   autoPlay = () => {
     if (this.props.autoplay && !this.interval) {
-      this.interval = setInterval(this.nextBoard, this.props.autoplaySpeed);
+      this.interval = setInterval(this.nextBoard, this.props.autoplaySpeed)
     }
-  };
+  }
 
   clearAutoPlay = () => {
     if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = null;
+      clearInterval(this.interval)
+      this.interval = null
     }
-  };
+  }
 
   nextBoard = () => {
-    const boardIndex = (this.state.boardIndex + 1) % this.dataLength;
+    const boardIndex = (this.state.boardIndex + 1) % this.dataLength
     if (this.props.infinite && boardIndex === 0) {
       setTimeout(() => {
-        this.setState({ boardIndex: 0, transition: false });
-      }, 500);
-      this.setState({ boardIndex: this.dataLength, transition: true });
+        this.setState({ boardIndex: 0, transition: false })
+      }, 500)
+      this.setState({ boardIndex: this.dataLength, transition: true })
     } else {
-      this.setState({ boardIndex, transition: true });
+      this.setState({ boardIndex, transition: true })
     }
-  };
+  }
 
   onSwipeStart = e => {
-    this.clearAutoPlay();
-    this.setState({ transition: false });
-    this.startX = getX(e);
-    this.startIndex = this.state.boardIndex;
-  };
+    this.clearAutoPlay()
+    this.setState({ transition: false })
+    this.startX = getX(e)
+    this.startIndex = this.state.boardIndex
+    this.startTime = Date.now()
+  }
 
   onSwipeMove = e => {
-    const deltaX = getX(e) - this.startX;
-    let boardIndex = this.startIndex - deltaX / this.boards.clientWidth;
+    const deltaX = getX(e) - this.startX
+    this.deltaX = deltaX
+    let boardIndex = this.startIndex - deltaX / this.boards.clientWidth
     if (this.props.infinite) {
       if (boardIndex >= this.dataLength) {
-        boardIndex -= this.dataLength;
+        boardIndex -= this.dataLength
       } else if (boardIndex <= 0) {
-        boardIndex += this.dataLength;
+        boardIndex += this.dataLength
       }
     }
     this.setState({
       boardIndex
-    });
-  };
+    })
+  }
 
   onSwipeEnd = e => {
-    this.autoPlay();
-    this.setState({ transition: true });
-    let boardIndex = this.state.boardIndex;
-    if (this.props.infinite) {
-      boardIndex = Math.round(this.state.boardIndex);
-    } else {
+    this.autoPlay()
+    this.setState({ transition: true })
+    const boardIndex = this.state.boardIndex
+    const deltaX = this.deltaX
+    const deltaTime = Date.now() - this.startTime
+
+    if (!this.props.infinite) {
       if (boardIndex < 0) {
-        boardIndex = 0;
-      } else if (boardIndex > this.dataLength - 1) {
-        boardIndex = this.dataLength - 1;
-      } else {
-        boardIndex = Math.round(this.state.boardIndex);
+        return this.setState({ boardIndex: 0 })
+      }
+      if (boardIndex > this.dataLength - 1) {
+        return this.setState({ boardIndex: this.dataLength - 1 })
       }
     }
-    this.setState({ boardIndex });
-  };
+    if (deltaTime < 250 && Math.abs(deltaX) > 20) {
+      if (deltaX > 0) {
+        return this.setState({ boardIndex: Math.floor(boardIndex) })
+      }
+      if (deltaX < 0) {
+        return this.setState({ boardIndex: Math.ceil(boardIndex) })
+      }
+    }
+    return this.setState({ boardIndex: Math.round(boardIndex) })
+  }
 
   onMouseDown = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (this.props.allowMouseSwipe) {
-      this.mouseDown = true;
-      document.addEventListener('mouseup', this.onMouseUp);
-      document.addEventListener('mousemove', this.onMouseMove);
-      this.onSwipeStart(e);
+      this.mouseDown = true
+      document.addEventListener('mouseup', this.onMouseUp)
+      document.addEventListener('mousemove', this.onMouseMove)
+      this.onSwipeStart(e)
     }
-  };
+  }
 
   onMouseMove = e => {
     if (this.mouseDown) {
-      this.onSwipeMove(e);
+      this.onSwipeMove(e)
     }
-  };
+  }
 
   onMouseUp = e => {
-    this.mouseDown = false;
-    document.removeEventListener('mouseup', this.onMouseUp);
-    document.removeEventListener('mousemove', this.onMouseMove);
-    this.onSwipeEnd(e);
-  };
+    this.mouseDown = false
+    document.removeEventListener('mouseup', this.onMouseUp)
+    document.removeEventListener('mousemove', this.onMouseMove)
+    this.onSwipeEnd(e)
+  }
 
   onBoardClick = e => {
     if (this.startX !== getX(e)) {
-      e.preventDefault();
+      e.preventDefault()
     }
-  };
+  }
 
   swipeBoard = boardIndex => {
-    this.clearAutoPlay();
-    this.setState({ boardIndex, transition: true });
-    this.autoPlay();
-  };
+    this.clearAutoPlay()
+    this.setState({ boardIndex, transition: true })
+    this.autoPlay()
+  }
 
   render(
     { data, className, infinite, children, ...props },
     { boardIndex, transition }
   ) {
-    const style = { transform: `translateX(${-boardIndex * 100}%)` };
-    if (transition) style.transition = 'transform 0.5s ease';
+    const style = { transform: `translateX(${-boardIndex * 100}%)` }
+    if (transition) style.transition = 'transform 0.5s ease'
     return (
       <div
         {...props}
@@ -165,13 +175,13 @@ export default class Erizabesu extends Component {
           })
         )}
       </div>
-    );
+    )
   }
 }
 
 function getX(e) {
   if ('touches' in e) {
-    return e.touches[0].pageX;
+    return e.touches[0].pageX
   }
-  return e.screenX;
+  return e.screenX
 }

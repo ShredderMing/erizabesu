@@ -1,18 +1,22 @@
-import fs from 'fs';
-import babel from 'rollup-plugin-babel';
-import postcss from 'rollup-plugin-postcss';
-import discardComments from 'postcss-discard-comments';
+import fs from 'fs'
+import babel from 'rollup-plugin-babel'
+import postcss from 'rollup-plugin-postcss'
+import discardComments from 'postcss-discard-comments'
 
-let pkg = JSON.parse(fs.readFileSync('./package.json'));
+let pkg = JSON.parse(fs.readFileSync('./package.json'))
 
 export default {
   input: 'src/index.js',
   output: [
-    { file: pkg.main, format: 'cjs' },
-    { file: pkg['umd:main'], format: 'umd', name: pkg.name }
+    { file: pkg.main, format: 'cjs', sourcemap: true },
+    {
+      file: pkg['umd:main'],
+      format: 'umd',
+      name: pkg.name,
+      globals: { preact: 'preact' },
+      sourcemap: true
+    }
   ],
-  globals: { preact: 'preact' },
-  sourcemap: true,
   external: ['preact'],
   plugins: [
     babel({
@@ -30,4 +34,4 @@ export default {
       plugins: [discardComments({ removeAll: true })]
     })
   ]
-};
+}

@@ -31,9 +31,9 @@
     "babel-preset-env": "^1.6.0",
     "gzip-size-cli": "^2.1.0",
     "postcss-discard-comments": "^2.0.4",
-    "rollup": "^0.50.0",
+    "rollup": "^0.57.1",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-postcss": "^0.5.5",
-    "uglify-js": "^3.3.4"
+    "rollup-plugin-postcss": "^1.5.1",
+    "uglify-js": "^3.3.21"
   }
 }

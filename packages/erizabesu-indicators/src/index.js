@@ -1,3 +1,3 @@
-import Simple from './Simple';
+import Simple from './Simple'
 
-export { Simple };
+export { Simple }
