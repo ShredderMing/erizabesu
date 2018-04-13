@@ -1,8 +1,13 @@
-# erizabesu
+<p align="center">
+  <img src="http://oyb6x67aa.bkt.clouddn.com/erizabesu.png" width="428" alt="erizabesu">
+</p>
+<h1 align="center">
+	Erizabesu(エリザベス)
+	<a href="https://www.npmjs.org/package/erizabesu"><img src="https://img.shields.io/npm/v/erizabesu.svg?style=flat" alt="npm"></a> <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat" alt="prettier"></a>
+</h1>
+<p align="center">Carousel component built with Preact.</p>
 
-[![npm version](https://img.shields.io/npm/v/erizabesu.svg?style=flat)](https://www.npmjs.com/package/erizabesu)
-
-Carousel component built with Preact.
+---
 
 ## Install
 
@@ -10,11 +15,13 @@ Carousel component built with Preact.
 ``` sh
 npm install erizabesu
 npm install erizabesu-indicators # optional
+npm install erizabesu-arrows # optional
 ```
 **yarn**
 ``` sh
 yarn add erizabesu
 yarn add erizabesu-indicators # optional
+yarn add erizabesu-arrows # optional
 ```
 
 ## Demos
@@ -25,7 +32,8 @@ yarn add erizabesu-indicators # optional
 ```js
 import { h } from 'preact';
 import Erizabesu from 'erizabesu';
-import { Simple } from 'erizabesu-indicators';
+import { Simple as Indicator } from 'erizabesu-indicators';
+import { Simple as Arrow } from 'erizabesu-arrows';
 
 const data = [
   {
@@ -57,7 +65,9 @@ const data = [
 
 const SimpleSlider = () => (
   <Erizabesu data={data} style={{width: '600px', height: '300px'}}>
-    <Simple />
+    <Indicator />
+    <Arrow.Prev />
+    <Arrow.Next />
   </Erizabesu>
 );
 

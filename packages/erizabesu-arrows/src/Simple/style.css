@@ -1,0 +1,28 @@
+.erizabesu {
+  position: relative;
+}
+.erizabesu .arrow {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 60px;
+  margin-top: -30px;
+  cursor: pointer;
+  opacity: 0.1;
+  transition: all 250ms ease-in-out
+}
+.erizabesu:hover .arrow {
+  opacity: 1;
+}
+.erizabesu .arrow path {
+  transition: all 250ms ease-in-out
+}
+.erizabesu .arrow:hover path {
+  stroke-width: 5
+}
+.erizabesu .arrow.left {
+  left: 10px;
+}
+.erizabesu .arrow.right {
+  right: 10px;
+}
