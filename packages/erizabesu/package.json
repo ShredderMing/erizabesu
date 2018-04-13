@@ -1,7 +1,7 @@
 {
   "name": "erizabesu",
   "amdName": "erizabesu",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "dist/erizabesu.js",
   "umd:main": "dist/erizabesu.umd.js",
   "license": "MIT",
