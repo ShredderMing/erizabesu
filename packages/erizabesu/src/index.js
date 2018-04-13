@@ -35,7 +35,7 @@ export default class Erizabesu extends Component {
 
   autoPlay = () => {
     if (this.props.autoplay && !this.interval) {
-      this.interval = setInterval(this.nextBoard, this.props.autoplaySpeed)
+      this.interval = setInterval(this.next, this.props.autoplaySpeed)
     }
   }
 
@@ -46,13 +46,29 @@ export default class Erizabesu extends Component {
     }
   }
 
-  nextBoard = () => {
-    const boardIndex = (this.state.boardIndex + 1) % this.dataLength
-    if (this.props.infinite && boardIndex === 0) {
+  prev = () => {
+    const boardIndex = this.state.boardIndex - 1
+    if (this.props.infinite && boardIndex === -1) {
       setTimeout(() => {
-        this.setState({ boardIndex: 0, transition: false })
-      }, 500)
-      this.setState({ boardIndex: this.dataLength, transition: true })
+        this.setState({ boardIndex: this.dataLength - 1, transition: true })
+      }, 0)
+      this.setState({ boardIndex: this.dataLength, transition: false })
+    } else if (boardIndex === -1) {
+      this.setState({ boardIndex: this.dataLength - 1, transition: true })
+    } else {
+      this.setState({ boardIndex, transition: true })
+    }
+  }
+
+  next = () => {
+    const boardIndex = this.state.boardIndex + 1
+    if (this.props.infinite && boardIndex === this.dataLength + 1) {
+      setTimeout(() => {
+        this.setState({ boardIndex: 1, transition: true })
+      }, 0)
+      this.setState({ boardIndex: 0, transition: false })
+    } else if (!this.props.infinite && boardIndex === this.dataLength) {
+      this.setState({ boardIndex: 0, transition: true })
     } else {
       this.setState({ boardIndex, transition: true })
     }
@@ -138,8 +154,21 @@ export default class Erizabesu extends Component {
   }
 
   swipeBoard = boardIndex => {
+    boardIndex = boardIndex % this.dataLength
     this.clearAutoPlay()
     this.setState({ boardIndex, transition: true })
+    this.autoPlay()
+  }
+
+  prevBoard = () => {
+    this.clearAutoPlay()
+    this.prev()
+    this.autoPlay()
+  }
+
+  nextBoard = () => {
+    this.clearAutoPlay()
+    this.next()
     this.autoPlay()
   }
 
@@ -171,7 +200,9 @@ export default class Erizabesu extends Component {
           cloneElement(child, {
             num: data.length,
             index: boardIndex === data.length ? 0 : boardIndex,
-            swipeBoard: this.swipeBoard
+            swipeBoard: this.swipeBoard,
+            prevBoard: this.prevBoard,
+            nextBoard: this.nextBoard
           })
         )}
       </div>
