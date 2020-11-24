@@ -1,7 +1,7 @@
 {
   "name": "erizabesu",
   "private": true,
-  "author": "ShredderMing <eternallovext@gmail.com>",
+  "author": "ShredderMing <shredderming@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "lerna run build",
