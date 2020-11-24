@@ -1,5 +1,5 @@
 import fs from 'fs'
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import discardComments from 'postcss-discard-comments'
 import resolve from 'rollup-plugin-node-resolve'
@@ -15,8 +15,8 @@ export default {
       format: 'umd',
       name: pkg.amdName,
       globals: { preact: 'preact' },
-      sourcemap: true
-    }
+      sourcemap: true,
+    },
   ],
 
   external: ['preact'],
@@ -26,15 +26,15 @@ export default {
       babelrc: false,
       comments: false,
       exclude: ['node_modules/**', '**/*.css'],
-      presets: [['env', { modules: false, loose: true }]],
+      presets: [['@babel/preset-env', { modules: false, loose: true }]],
       plugins: [
-        'transform-object-rest-spread',
-        'transform-class-properties',
-        ['transform-react-jsx', { pragma: 'h' }]
-      ]
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-proposal-class-properties',
+        ['@babel/plugin-transform-react-jsx', { pragma: 'h' }],
+      ],
     }),
     postcss({
-      plugins: [discardComments({ removeAll: true })]
-    })
-  ]
+      plugins: [discardComments({ removeAll: true })],
+    }),
+  ],
 }
