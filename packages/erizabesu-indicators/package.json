@@ -1,7 +1,7 @@
 {
   "name": "erizabesu-indicators",
   "amdName": "erizabesuIndicators",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/erizabesu-indicators.js",
   "umd:main": "dist/erizabesu-indicators.umd.js",
   "license": "MIT",

@@ -1,7 +1,7 @@
 {
   "name": "erizabesu-arrows",
   "amdName": "erizabesuArrows",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/erizabesu-arrows.js",
   "umd:main": "dist/erizabesu-arrows.umd.js",
   "license": "MIT",
